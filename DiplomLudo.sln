@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomLudo", "DiplomLudo\DiplomLudo.csproj", "{15C56D14-1269-4745-AA7E-822E8CC7C28B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomLudo.Test", "DiplomLudo.Test\DiplomLudo.Test.csproj", "{40078A4E-13B1-434F-BF1F-21C3BC8C2627}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomLudo.SpecFlow.Test", "DiplomLudo.SpecFlow.Test\DiplomLudo.SpecFlow.Test.csproj", "{821F75E6-95C4-4942-8981-320746C53700}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15C56D14-1269-4745-AA7E-822E8CC7C28B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15C56D14-1269-4745-AA7E-822E8CC7C28B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15C56D14-1269-4745-AA7E-822E8CC7C28B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15C56D14-1269-4745-AA7E-822E8CC7C28B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40078A4E-13B1-434F-BF1F-21C3BC8C2627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40078A4E-13B1-434F-BF1F-21C3BC8C2627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40078A4E-13B1-434F-BF1F-21C3BC8C2627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40078A4E-13B1-434F-BF1F-21C3BC8C2627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821F75E6-95C4-4942-8981-320746C53700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821F75E6-95C4-4942-8981-320746C53700}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821F75E6-95C4-4942-8981-320746C53700}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821F75E6-95C4-4942-8981-320746C53700}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
