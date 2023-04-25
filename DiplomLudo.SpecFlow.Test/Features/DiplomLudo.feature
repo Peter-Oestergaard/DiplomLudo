@@ -13,13 +13,12 @@
 */
 
 @startup
-Scenario: Starting a new game with red and yellow
-	Given the number of players is 2
-	And the first player is yellow
+Scenario: Starting a new game with yellow and red
+	Given the first player is yellow
 	And the second player is red
 	When the game is started
-	Then red home will have 4 red pieces
-	And yellow home will have 4 yellow pieces
+	Then yellow home will have 4 yellow pieces
+	And red home will have 4 red pieces
 	
 Scenario: The first player begins the game with a die roll
 	Given a game in it's initial state with red and yellow players
