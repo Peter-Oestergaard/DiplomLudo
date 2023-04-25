@@ -19,6 +19,7 @@ public class Home
             if (tile.Piece == null)
             {
                 tile.Piece = piece;
+                piece.IsHome = true;
                 return;
             }
         }
