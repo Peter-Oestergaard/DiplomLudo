@@ -1,0 +1,6 @@
+Game.newGame(numplayers: 2): void
+Game.GetCurrentPlayer(): Player
+
+Player.RollDie(): DieRoll
+Game.GetPiecesThatCanMakeLegalMoves(DieRoll): List<Piece>
+

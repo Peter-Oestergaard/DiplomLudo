@@ -1,0 +1,27 @@
+Given a gameboard in its initial state:
+when I roll a di
+
+class library
+
+class GameBoard
+class Die
+class Piece {
+}
+class Player
+class Rules
+class Game
+
+Pseudostart:
+Initialize gameboard with pieces
+Initialize players (2-4)
+
+class Rules:
+BoardState
+GetLegalMoves(Player, DieRoll)
+	return List<Moves>;
+
+
+
+Given gameboard with pieces at ...
+when i roll a 3
+then getlegalmoves return 2 moves
