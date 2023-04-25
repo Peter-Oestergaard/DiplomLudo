@@ -13,22 +13,21 @@
 */
 
 @startup
-Scenario: Starting a new game with red and yellow
+Scenario: Starting a new game with two players
 	Given the number of players is 2
-	And the first player is yellow
-	And the second player is red
 	When the game is started
-	Then red home will have 4 red pieces
-	And yellow home will have 4 yellow pieces
+	Then the gameboard will be empty
+	And player 1 will have 4 pieces in their home
+	And player 2 will have 4 pieces in their home
 	
 Scenario: The first player begins the game with a die roll
-	Given a game in it's initial state with red and yellow players
-	And red is the current player
-	When red rolls a 6 with the die
-	Then red can move any of their pieces to the red starting tile
+	Given a game in it's initial state with 2 players
+	And player 1 is the current player
+	When player 1 rolls a 6 with the die
+	Then player 1 can move any of their pieces to their starting tile
 	
 Scenario: A player moves a piece to starting point with another players piece on it
-	Given a game with reds pieces at home
-	And one of yellows pieces on reds starting tile
-	When red moves to starting point
-	Then yellows piece is returned to yellow home
+	Given a game with player 1's pieces at home
+	And one of player 2's pieces on player 1's starting tile
+	When player 2 moves to starting point
+	Then player 1's piece is returned to home
