@@ -76,7 +76,7 @@ classDiagram
 
 | Term                          | Meaning                                                                                                                                            |
 |-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Game board                    | he playing surface for Ludo, which is typically square in shape and divided into colored sections                                                  |
+| Game board                    | The playing surface for Ludo, which is typically square in shape and divided into colored sections                                                 |
 | Spaces or tiles               | The individual squares on the game board where players move their tokens                                                                           |
 | Tokens or pawns               | The playing pieces used to represent each player's position on the game board. In Ludo, each player typically has four tokens of the same color    |
 | Home or house                 | The area of the game board where each player's tokens start at the beginning of the game                                                           |
