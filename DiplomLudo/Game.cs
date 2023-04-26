@@ -37,13 +37,23 @@ public class Game
         {
             foreach (Piece piece in CurrentPlayer.Pieces)
             {
-                if (Board.IsPieceMovable(piece, Die.Value))
+                if (IsPieceMovable(piece, Die.Value))
                 {
                     piecesThatCanBeMoved.Add(piece);
                 }
             }
         }
         return piecesThatCanBeMoved;
+    }
+    
+    public bool IsPieceMovable(Piece piece, int dieValue)
+    {
+        if (piece.IsHome && dieValue == 6)
+        {
+            return true;
+        }
+
+        return false;
     }
     
     public Tile? NextTile(Piece piece)

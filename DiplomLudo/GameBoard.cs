@@ -40,13 +40,4 @@ public class GameBoard
             Homes[player.Color].AddPiece(piece);
         }
     }
-    public bool IsPieceMovable(Piece piece, int dieValue)
-    {
-        if (piece.IsHome && dieValue == 6)
-        {
-            return true;
-        }
-
-        return false;
-    }
 }
