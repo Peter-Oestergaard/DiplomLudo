@@ -2,26 +2,18 @@
 
 public class Home
 {
-    public List<Tile> Tiles { get; } = new();
-
-    public Home()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            Tiles.Add(new Tile());
-        }
-    }
+    public int PiecesCount => Tile.PiecesCount();
     
+    public Tile Tile { get; }
+
+    public Home(Color color)
+    {
+        Tile = new Tile(TileType.Home, color);
+    }
+
     public void AddPiece(Piece piece)
     {
-        foreach (Tile tile in Tiles)
-        {
-            if (tile.Piece == null)
-            {
-                tile.Piece = piece;
-                piece.IsHome = true;
-                return;
-            }
-        }
+        piece.MoveTo(Tile);
     }
+
 }

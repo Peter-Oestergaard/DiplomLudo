@@ -8,11 +8,11 @@ public class Game
 
     private bool _dieRolled;
 
-    public Game(List<Player> players, IDie? die = null)
+    public Game(Dictionary<Color, Player> players, IDie? die = null)
     {
         Board = new GameBoard();
         Die = die ?? new Die();
-        foreach (Player player in players)
+        foreach (Player player in players.Values)
         {
             Board.PutPlayerPiecesInHome(player);
         }
@@ -35,9 +35,9 @@ public class Game
         List<Piece> piecesThatCanBeMoved = new();
         if (_dieRolled)
         {
-            foreach (Piece piece in CurrentPlayer.Pieces)
+            foreach (Piece piece in CurrentPlayer!.Pieces)
             {
-                if (IsPieceMovable(piece, Die.Value))
+                if (NextTile(piece) != null)
                 {
                     piecesThatCanBeMoved.Add(piece);
                 }
@@ -45,25 +45,12 @@ public class Game
         }
         return piecesThatCanBeMoved;
     }
-    
-    public bool IsPieceMovable(Piece piece, int dieValue)
-    {
-        if (piece.IsHome && dieValue == 6)
-        {
-            return true;
-        }
 
-        return false;
-    }
-    
     public Tile? NextTile(Piece piece)
     {
-        if (_dieRolled)
+        if (piece.Tile.Type == TileType.Home && Die.Value == 6)
         {
-            if (piece.IsHome && Die.Value == 6)
-            {
-                return Board.StartingTiles[piece.Color];
-            }
+            return Board.StartingTiles[piece.Color];
         }
         return null;
     }

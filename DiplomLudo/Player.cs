@@ -7,7 +7,7 @@ public class Player
     public Player(Color color)
     {
         Color = color;
-        
+
         for (int i = 0; i < 4; i++)
         {
             Pieces.Add(new Piece(color));

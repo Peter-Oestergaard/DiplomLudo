@@ -14,13 +14,13 @@ Scenario Outline: Starting a new game with two players
 	
 @RequiresCheatingDie
 Scenario: The first player begins the game with a die roll
-	Given a two player game in it's initial state with players red and blue
+	Given a two player game in its initial state with players red and blue
 	And red is the current player
 	When the current player rolls a 6 with the die
 	Then red can move any of their pieces to the red starting tile
 	
 Scenario: A player moves a piece to starting point with another players piece on it
-	Given a game with reds pieces at home
-	And one of yellows pieces on reds starting tile
+	Given a two player game in its initial state with players red and yellow
+	And one of yellows pieces is on reds starting tile
 	When red moves a piece to reds starting tile
 	Then yellows piece is returned to yellows home
