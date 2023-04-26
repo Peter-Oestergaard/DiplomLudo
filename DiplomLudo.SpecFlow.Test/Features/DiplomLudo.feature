@@ -22,5 +22,5 @@ Scenario: The first player begins the game with a die roll
 Scenario: A player moves a piece to starting point with another players piece on it
 	Given a game with reds pieces at home
 	And one of yellows pieces on reds starting tile
-	When red moves to starting point
-	Then yellows piece is returned to yellow home
+	When red moves a piece to reds starting tile
+	Then yellows piece is returned to yellows home
