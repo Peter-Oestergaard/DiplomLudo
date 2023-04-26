@@ -2,7 +2,7 @@
 
 public class Home
 {
-    public int PiecesCount => Tile.PiecesCount();
+    public int PiecesCount => Tile.PiecesCount;
     
     public Tile Tile { get; }
 
@@ -16,4 +16,8 @@ public class Home
         piece.MoveTo(Tile);
     }
 
+    public Piece? GetAnyPiece()
+    {
+        return Tile.AnyPiece;
+    }
 }

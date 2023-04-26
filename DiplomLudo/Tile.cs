@@ -1,11 +1,12 @@
-﻿using System.Xml;
-
-namespace DiplomLudo;
+﻿namespace DiplomLudo;
 
 public class Tile
 {
     public TileType Type { get; }
     public Color Color { get; }
+    public int PiecesCount => _pieces.Count;
+    public Piece? AnyPiece => _pieces.FirstOrDefault();
+    
     private HashSet<Piece> _pieces = new();
 
     public Tile(TileType type, Color color)
@@ -22,10 +23,5 @@ public class Tile
     public void Remove(Piece piece)
     {
         _pieces.Remove(piece);
-    }
-    
-    public int PiecesCount()
-    {
-        return _pieces.Count;
     }
 }

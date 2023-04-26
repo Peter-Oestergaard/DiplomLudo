@@ -48,10 +48,28 @@ public class Game
 
     public Tile? NextTile(Piece piece)
     {
-        if (piece.Tile.Type == TileType.Home && Die.Value == 6)
+        if (piece.Tile!.Type == TileType.Home && Die.Value == 6)
         {
             return Board.StartingTiles[piece.Color];
         }
         return null;
+    }
+    
+    public void Move(Piece piece)
+    {
+        Tile? destination = NextTile(piece);
+        if (destination == null) return;
+
+        if (destination.PiecesCount == 1 && destination.AnyPiece!.Color != piece.Color)
+        {
+            // The piece on the tile is knocked home
+            Board.MovePieceToTile(destination.AnyPiece, Board.Homes[destination.AnyPiece.Color].Tile);
+        }
+
+        Board.MovePieceToTile(piece, destination);
+    }
+    public Piece? GetAnyPieceFromHome()
+    {
+        return Board.Homes[CurrentPlayer!.Color].GetAnyPiece();
     }
 }

@@ -19,6 +19,7 @@ Scenario: The first player begins the game with a die roll
 	When the current player rolls a 6 with the die
 	Then red can move any of their pieces to the red starting tile
 	
+@RequiresCheatingDie
 Scenario: A player moves a piece to starting point with another players piece on it
 	Given a two player game in its initial state with players red and yellow
 	And one of yellows pieces is on reds starting tile
