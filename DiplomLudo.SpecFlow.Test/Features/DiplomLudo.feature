@@ -25,3 +25,17 @@ Scenario: A player moves a piece to starting point with another players piece on
 	And one of yellows pieces is on reds starting tile
 	When red moves a piece to reds starting tile
 	Then yellows piece is returned to yellows home
+	
+@RequiresCheatingDie
+Scenario Outline: If a player has all their pieces at home, roll a die a maximum
+	of 3 times to roll a 6 before passing the turn
+	Given a two player game in its initial state with players blue and green
+	And green is the current player
+	And doesn't roll a six until attempt <attempts>
+	Then green will have rolled the die <attempts> times
+	And have one piece on the green starting tile
+	
+	Examples:
+	| 1 |
+	| 2 |
+	| 3 |
