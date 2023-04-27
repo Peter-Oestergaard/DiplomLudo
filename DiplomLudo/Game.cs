@@ -64,17 +64,8 @@ public class Game
         {
             return Board.StartingTiles[piece.Color];
         }
-        Tile? destination = null;
-        switch (piece.Tile!.Type)
-        {
-            case TileType.Regular:
-            case TileType.Start:
-            case TileType.Globe:
-            case TileType.Star:
-                destination = Board.NextMainTile(piece.Tile, Die.Value);
-                break;
-        }
-        return destination;
+
+        return Board.NextMainTile(piece.Tile, Die.Value);
     }
 
     public void Move(Piece piece)
