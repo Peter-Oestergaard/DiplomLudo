@@ -69,8 +69,7 @@ public class DiplomLudoStepDefinitions
             _game.NextTile(p).Should().BeEquivalentTo(_game.Board.StartingTiles[startingTileColor.ToEnum()]);
         });
     }
-
-
+    
     [Given(@"one of (red|green|yellow|blue)s pieces is on (red|green|yellow|blue)s starting tile")]
     public void GivenOneOfColorsPiecesOnColorsStartingTile(string p1Color, string p2Color)
     {
@@ -81,9 +80,6 @@ public class DiplomLudoStepDefinitions
     [When(@"(red|green|yellow|blue) moves a piece to (red|green|yellow|blue)s starting tile")]
     public void WhenColorMovesAPieceToColorsStartingTile(string playerColor, string startingTileColor)
     {
-        _game.StartingPlayer(_players[playerColor.ToEnum()]);
-        (_die as CheatingDie)!.cheat = () => 6;
-        _game.RollDie();
         _game.Move(_game.GetAnyPieceFromHome()!);
     }
     
@@ -92,6 +88,7 @@ public class DiplomLudoStepDefinitions
     {
         _game.Board.Homes[homeColor.ToEnum()].PiecesCount.Should().Be(4);
     }
+    
     [Given(@"doesn't roll a six until attempt ([1-3])")]
     public void GivenDoesntRollASixUntilAttempt(int attempts)
     {
@@ -104,9 +101,28 @@ public class DiplomLudoStepDefinitions
         (_die as CheatingDie)!.cheat = () => 6;
         _game.RollDie();
     }
+    
     [Then(@"they will have rolled the die ([1-3]) times")]
-    public void ThenGreenWillHaveRolledTheDieTimes(int attempts)
+    public void ThenColorWillHaveRolledTheDieTimes(int attempts)
     {
         _game.CurrentPlayerNumberOfDieRolls.Should().Be(attempts);
+    }
+    
+    [Then(@"have four legal moves to (red|green|yellow|blue)s starting tile")]
+    public void ThenHaveOneLegalMoveToColorsStartingTile(string _)
+    {
+        _game.PiecesWithLegalMoves().Count.Should().Be(4);
+    }
+    
+    [Then(@"(red|green|yellow|blue) will have ([0-4]) piece\(s\) on the (red|green|yellow|blue) starting tile")]
+    public void ThenColorWillHaveNPiecesOnTheColorStartingTile(string playerColor, int count, string startingTileColor)
+    {
+        _game.Board.StartingTiles[startingTileColor.ToEnum()]!.PiecesCount.Should().Be(count);
+        _game.Board.StartingTiles[startingTileColor.ToEnum()]!.AnyPiece!.Color.Should().Be(playerColor.ToEnum());
+    }
+    [Then(@"it will be (red|green|yellow|blue)s turn")]
+    public void ThenItWillBeColorsTurn(string currentPlayerColor)
+    {
+        _game.CurrentPlayer!.Color.Should().Be(currentPlayerColor.ToEnum());
     }
 }

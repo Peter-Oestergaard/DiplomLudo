@@ -5,12 +5,14 @@ public class Game
     public GameBoard Board { get; }
     public Player? CurrentPlayer { get; private set; }
     private IDie Die { get; init; }
+    private SortedDictionary<Color, Player> _playersInGame;
     public int CurrentPlayerNumberOfDieRolls { get; private set; }
 
     private bool _dieRolled;
 
     public Game(Dictionary<Color, Player> players, IDie? die = null)
     {
+        _playersInGame = new SortedDictionary<Color, Player>(players);
         Board = new GameBoard();
         Die = die ?? new Die();
         foreach (Player player in players.Values)
@@ -80,7 +82,19 @@ public class Game
         }
 
         Board.MovePieceToTile(piece, destination);
+        PassTurnToNextPlayer();
     }
+    
+    private void PassTurnToNextPlayer()
+    {
+        int current = (int)CurrentPlayer!.Color;
+        do
+        {
+            current = (current + 1) % 4;
+        } while (!_playersInGame.ContainsKey((Color)current));
+        CurrentPlayer = _playersInGame[(Color)current];
+    }
+    
     public Piece? GetAnyPieceFromHome()
     {
         return Board.Homes[CurrentPlayer!.Color].GetAnyPiece();

@@ -23,7 +23,9 @@ Scenario: The first player begins the game with a die roll
 Scenario: A player moves a piece to starting point with another players piece on it
 	Given a two player game in its initial state with players red and yellow
 	And one of yellows pieces is on reds starting tile
-	When red moves a piece to reds starting tile
+	And red is the current player
+	When the current player rolls a 6 with the die
+	And red moves a piece to reds starting tile
 	Then yellows piece is returned to yellows home
 	
 @RequiresCheatingDie
@@ -33,9 +35,9 @@ Scenario Outline: If a player has all their pieces at home, roll a die a maximum
 	And green is the current player
 	And doesn't roll a six until attempt <attempts>
 	Then they will have rolled the die <attempts> times
-	And have one legal move to greens starting tile
+	And have four legal moves to greens starting tile
 	When green moves a piece to greens starting tile
-	Then green will have one piece on the green starting tile
+	Then green will have 1 piece(s) on the green starting tile
 	And it will be blues turn
 	
 	Examples:
