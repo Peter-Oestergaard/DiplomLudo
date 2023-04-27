@@ -32,10 +32,14 @@ Scenario Outline: If a player has all their pieces at home, roll a die a maximum
 	Given a two player game in its initial state with players blue and green
 	And green is the current player
 	And doesn't roll a six until attempt <attempts>
-	Then green will have rolled the die <attempts> times
-	And have one piece on the green starting tile
+	Then they will have rolled the die <attempts> times
+	And have one legal move to greens starting tile
+	When green moves a piece to greens starting tile
+	Then green will have one piece on the green starting tile
+	And it will be blues turn
 	
 	Examples:
-	| 1 |
-	| 2 |
-	| 3 |
+	| attempts |
+	| 1        |
+	| 2        |
+	| 3        |

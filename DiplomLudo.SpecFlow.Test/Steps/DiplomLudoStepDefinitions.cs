@@ -92,4 +92,21 @@ public class DiplomLudoStepDefinitions
     {
         _game.Board.Homes[homeColor.ToEnum()].PiecesCount.Should().Be(4);
     }
+    [Given(@"doesn't roll a six until attempt ([1-3])")]
+    public void GivenDoesntRollASixUntilAttempt(int attempts)
+    {
+        for (int i = 0; i < attempts-1; i++)
+        {
+            (_die as CheatingDie)!.cheat = () => 1;
+            _game.RollDie();
+            _game.PiecesWithLegalMoves().Should().BeEmpty();
+        }
+        (_die as CheatingDie)!.cheat = () => 6;
+        _game.RollDie();
+    }
+    [Then(@"they will have rolled the die ([1-3]) times")]
+    public void ThenGreenWillHaveRolledTheDieTimes(int attempts)
+    {
+        _game.CurrentPlayerNumberOfDieRolls.Should().Be(attempts);
+    }
 }

@@ -5,6 +5,7 @@ public class Game
     public GameBoard Board { get; }
     public Player? CurrentPlayer { get; private set; }
     private IDie Die { get; init; }
+    public int CurrentPlayerNumberOfDieRolls { get; private set; }
 
     private bool _dieRolled;
 
@@ -24,12 +25,23 @@ public class Game
 
     public void RollDie()
     {
-        if (!_dieRolled)
+        // Rolled the die, can make move
+        if (_dieRolled && PiecesWithLegalMoves().Count > 0)
+        {
+            throw new CantRollDieException("You already rolled the die and can make a move");
+        }
+
+        if (!_dieRolled || (Board.Homes[CurrentPlayer!.Color].PiecesCount == 4 && CurrentPlayerNumberOfDieRolls < 3))
         {
             Die.Roll();
             _dieRolled = true;
+            CurrentPlayerNumberOfDieRolls++;
+            return;
         }
+        
+        throw new CantRollDieException("You already rolled the die");
     }
+    
     public List<Piece> PiecesWithLegalMoves()
     {
         List<Piece> piecesThatCanBeMoved = new();
@@ -52,9 +64,19 @@ public class Game
         {
             return Board.StartingTiles[piece.Color];
         }
-        return null;
+        Tile? destination = null;
+        switch (piece.Tile!.Type)
+        {
+            case TileType.Regular:
+            case TileType.Start:
+            case TileType.Globe:
+            case TileType.Star:
+                destination = Board.NextMainTile(piece.Tile, Die.Value);
+                break;
+        }
+        return destination;
     }
-    
+
     public void Move(Piece piece)
     {
         Tile? destination = NextTile(piece);

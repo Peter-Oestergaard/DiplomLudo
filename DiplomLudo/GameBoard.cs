@@ -92,4 +92,16 @@ public class GameBoard
         piece.MoveTo(tile);
 
     }
+
+    public Tile? NextMainTile(Tile origin, int steps = 1)
+    {
+        int originIndex = _mainTiles.IndexOf(origin);
+
+        if (originIndex == -1) return null;
+
+        int destinationIndex = originIndex + steps;
+        if (steps > 51) destinationIndex -= 52;
+
+        return _mainTiles[destinationIndex];
+    }
 }
