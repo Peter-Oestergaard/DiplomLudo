@@ -4,25 +4,24 @@ public class GameBoard
 {
     public Dictionary<Color, Home> Homes { get; } = new();
 
-    private List<Tile> _mainTiles;
-
-    //private readonly int _numberOfMainTiles = 52;
+    public List<Tile> MainTiles { get; private set; }
+    
     // private Dictionary<Piece, Tile> _tokenPositions = new Dictionary<Piece, Tile>();
 
     public Dictionary<Color, Tile?> StartingTiles { get; } = new();
 
     public GameBoard()
     {
-        _mainTiles = MainTiles();
+        MainTiles = GetMainTiles();
         
         foreach (Color color in Enum.GetValues(typeof(Color)))
         {
             if(color == Color.None) continue;
             Homes[color] = new Home(color);
-            StartingTiles[color] = _mainTiles.Single(t => t.Type == TileType.Start && t.Color == color);
+            StartingTiles[color] = MainTiles.Single(t => t.Type == TileType.Start && t.Color == color);
         }
     }
-    private List<Tile> MainTiles()
+    private List<Tile> GetMainTiles()
     {
         List<Tile> tiles = new();
         tiles.Add(new Tile(TileType.Start, Color.Red)); // 0
@@ -90,18 +89,5 @@ public class GameBoard
     public void MovePieceToTile(Piece piece, Tile tile)
     {
         piece.MoveTo(tile);
-
-    }
-
-    public Tile? NextMainTile(Tile origin, int steps = 1)
-    {
-        int originIndex = _mainTiles.IndexOf(origin);
-
-        if (originIndex == -1) return null;
-
-        int destinationIndex = originIndex + steps;
-        if (steps > 51) destinationIndex -= 52;
-
-        return _mainTiles[destinationIndex];
     }
 }
