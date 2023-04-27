@@ -88,14 +88,10 @@ public class Game
     
     public Tile? NextMainTile(Tile origin, int steps = 1)
     {
-        // TODO: refactor
         int originIndex = Board.MainTiles.IndexOf(origin);
 
         if (originIndex == -1) return null;
 
-        int destinationIndex = originIndex + steps;
-        if (destinationIndex > 51) destinationIndex -= 52;
-
-        return Board.MainTiles[destinationIndex];
+        return Board.MainTiles[(originIndex + steps) % Board.MainTiles.Count];
     }
 }
