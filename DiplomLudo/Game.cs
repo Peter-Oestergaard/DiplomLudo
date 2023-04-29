@@ -68,8 +68,12 @@ public class Game
         {
             return Board.StartingTiles[piece.Color];
         }
+        if (piece.Tile!.Type == TileType.Home && Die.Value != 6)
+        {
+            return null;
+        }
 
-        return NextMainTile(piece.Tile, Die.Value);
+        return NextTileInPath(piece.Tile, piece.Color, Die.Value);
     }
 
     public void Move(Piece piece)
@@ -108,12 +112,12 @@ public class Game
         return Board.Homes[CurrentPlayer!.Color].GetAnyPiece();
     }
     
-    public Tile? NextMainTile(Tile origin, int steps = 1)
+    public Tile? NextTileInPath(Tile origin,Color color, int steps = 1)
     {
-        int originIndex = Board.MainTiles.IndexOf(origin);
-
+        int originIndex = Board.PlayerPaths[color].IndexOf(origin);
+        
         if (originIndex == -1) return null;
-
-        return Board.MainTiles[(originIndex + steps) % Board.MainTiles.Count];
+        
+        return Board.PlayerPaths[color][originIndex + steps];
     }
 }

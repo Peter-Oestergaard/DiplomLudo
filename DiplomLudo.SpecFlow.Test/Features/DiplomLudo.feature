@@ -53,7 +53,7 @@ Scenario Outline: A player moves into their home stretch
 	And one of yellows pieces is <tiles to home stretch> tiles in front of the star before yellows home stretch
 	When the current player rolls a <roll> with the die
 	And current player moves that piece
-	Then yellows piece is <tiles from finish> tiles away from the finish tile
+	Then that piece is <tiles from finish> tiles away from the finish tile
 	
 	Examples:
 	| tiles to home stretch | roll | tiles from finish |

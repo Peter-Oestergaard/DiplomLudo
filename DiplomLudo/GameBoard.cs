@@ -110,40 +110,4 @@ public class GameBoard
     {
         piece.MoveTo(tile);
     }
-    
-    /// <summary>
-    /// Get the tile that is distance away from tile.
-    /// Takes into account the color to calculate the distance
-    /// to tiles in the home stretch.
-    /// The distance cannot exceed 57.
-    /// </summary>
-    /// <param name="tile"></param>
-    /// <param name="distance"></param>
-    /// <param name="color"></param>
-    /// <returns></returns>
-    public Tile? GetTileDistanceAway(Tile tile, int distance, Color color)
-    {
-        switch (tile.Type)
-        {
-            case TileType.Regular:
-                // Check for the tile between the start tile and the star tile just before the home stretch.
-                // It's not possible for a piece of that color to get to this tile, so it doesn't make sense
-                // to try and get a tile any distance away.
-                if (tile.Index > TileBeforeHomeStretch[color].Index)
-                    if (tile.Index < StartingTiles[color].Index || (color == Color.Red && tile.Index == 51))
-                        return null;
-                goto case TileType.Globe;
-            case TileType.Start:
-            case TileType.Star:
-            case TileType.Globe:
-                int destinationIndex = tile.Index + distance;
-                if (destinationIndex > TileBeforeHomeStretch[color].Index)
-                {
-                    int i = 0;
-                }
-                break;
-        }
-        return MainTiles[tile.Index + distance];
-        //return HomeStretch[color][5];
-    }
 }

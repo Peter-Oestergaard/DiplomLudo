@@ -9,6 +9,7 @@ public class DiplomLudoStepDefinitions
     private Game _game = null!;
     private Dictionary<Color, Player> _players = new();
     private static IDie? _die;
+    private Piece _pieceUnderTest;
 
     [BeforeScenario("RequiresCheatingDie")]
     public static void SetupCheatingDie()
@@ -140,25 +141,31 @@ public class DiplomLudoStepDefinitions
     public void GivenOneOfColorsPiecesIsTilesInFrontOfTheStarBeforeColorsHomeStretch(string playerColor, int tiles, string homeStretchColor)
     {
         List<Tile> pp = _game.Board.PlayerPaths[playerColor.ToEnum()];
-        Piece piece = _players[playerColor.ToEnum()].Pieces.First();
+        _pieceUnderTest = _players[playerColor.ToEnum()].Pieces.First();
         Tile star = _game.Board.TileBeforeHomeStretch[homeStretchColor.ToEnum()];
-        _game.Board.MovePieceToTile(piece, pp[pp.IndexOf(star) - tiles]);
+        _game.Board.MovePieceToTile(_pieceUnderTest, pp[pp.IndexOf(star) - tiles]);
 
     }
     
-    [Then(@"(red|green|yellow|blue)s piece is ([0-51]) tiles away from the finish tile")]
-    public void ThenColorsPieceIsTilesAwayFromTheFinishTile(string playerColor, int tiles)
+    [Then(@"that piece is ([0-51]) tiles away from the finish tile")]
+    public void ThenThatPieceIsTilesAwayFromTheFinishTile(int tiles)
     {
-        List<Tile> pp = _game.Board.PlayerPaths[playerColor.ToEnum()];
+        List<Tile> pp = _game.Board.PlayerPaths[_pieceUnderTest.Color];
         Tile finishTile = pp.Last();
-        int i = pp.IndexOf(finishTile) - tiles;
+        //int i = pp.IndexOf(finishTile) - tiles;
         Tile tileWithPiece = pp[pp.IndexOf(finishTile)-tiles];
-        tileWithPiece.AnyPiece!.Color.Should().Be(playerColor.ToEnum());
+        tileWithPiece.Pieces.Should().Contain(_pieceUnderTest);
     }
     
     [Then(@"(red|green|yellow|blue) have [0-4] pieces in game")]
     public void ThenColorHavePiecesInGame(string playerColor, int pieces)
     {
         _players[playerColor.ToEnum()].Pieces.Count.Should().Be(pieces);
+    }
+    
+    [When(@"current player moves that piece")]
+    public void WhenCurrentPlayerMovesThatPiece()
+    {
+        _game.Move(_pieceUnderTest);
     }
 }

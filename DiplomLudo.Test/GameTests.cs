@@ -25,13 +25,13 @@ public class GameTests
     }
     
     [Theory]
-    [InlineData(4, 1, 5)]
-    [InlineData(14, 2, 16)]
-    [InlineData(7, 3, 10)]
-    [InlineData(34, 4, 38)]
-    [InlineData(43, 5, 48)]
-    [InlineData(50, 6, 4)]
-    public void CallingNextMainTile_ReturnsCorrectTile(int from, int steps, int expected)
+    [InlineData(4, Color.Blue, 1, 5)]
+    [InlineData(14, Color.Blue, 2, 16)]
+    [InlineData(7, Color.Blue, 3, 10)]
+    [InlineData(34, Color.Blue, 4, 0)]
+    [InlineData(43, Color.Blue, 5, 48)]
+    [InlineData(50, Color.Blue, 6, 4)]
+    public void CallingNextTileInPath_ReturnsCorrectTile(int from, Color color, int steps, int expected)
     {
         Dictionary<Color, Player> players = new();
         players[Color.Blue] = new Player(Color.Blue);
@@ -39,8 +39,9 @@ public class GameTests
         Game game = new Game(players);
 
         Tile origin = game.Board.MainTiles[from];
-        Tile destination = game.NextMainTile(origin, steps)!;
+        Tile destination = game.NextTileInPath(origin, color, steps)!;
 
-        game.Board.MainTiles.IndexOf(destination).Should().Be(expected);
+        //game.Board.PlayerPaths[color].IndexOf(destination).Should().Be(expected);
+        destination.Index.Should().Be(expected);
     }
 }

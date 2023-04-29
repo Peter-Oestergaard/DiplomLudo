@@ -7,7 +7,8 @@ public class Tile
     public int Index { get; }
     public int PiecesCount => _pieces.Count;
     public Piece? AnyPiece => _pieces.FirstOrDefault();
-    
+    public List<Piece> Pieces => _pieces.ToList();
+
     private HashSet<Piece> _pieces = new();
 
     public Tile(TileType type, Color color, int index)
