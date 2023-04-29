@@ -62,20 +62,6 @@ public class Game
         return piecesThatCanBeMoved;
     }
 
-    public Tile? NextTile(Piece piece)
-    {
-        if (piece.Tile!.Type == TileType.Home && Die.Value == 6)
-        {
-            return Board.StartingTiles[piece.Color];
-        }
-        if (piece.Tile!.Type == TileType.Home && Die.Value != 6)
-        {
-            return null;
-        }
-
-        return NextTileInPath(piece.Tile, piece.Color, Die.Value);
-    }
-
     public void Move(Piece piece)
     {
         Tile? destination = NextTile(piece);
@@ -110,6 +96,20 @@ public class Game
     public Piece? GetAnyPieceFromHome()
     {
         return Board.Homes[CurrentPlayer!.Color].GetAnyPiece();
+    }
+    
+    public Tile? NextTile(Piece piece)
+    {
+        if (piece.Tile!.Type == TileType.Home && Die.Value == 6)
+        {
+            return Board.StartingTiles[piece.Color];
+        }
+        if (piece.Tile!.Type == TileType.Home && Die.Value != 6)
+        {
+            return null;
+        }
+
+        return NextTileInPath(piece.Tile, piece.Color, Die.Value);
     }
     
     public Tile? NextTileInPath(Tile origin,Color color, int steps = 1)
