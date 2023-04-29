@@ -1,4 +1,6 @@
-﻿namespace DiplomLudo;
+﻿using DiplomLudo.Exceptions;
+
+namespace DiplomLudo;
 
 public class Game
 {
@@ -83,6 +85,12 @@ public class Game
 
         Board.MovePieceToTile(piece, destination);
         PassTurnToNextPlayer();
+    }
+
+    public void RemovePiece(Piece piece)
+    {
+        piece.Tile?.Remove(piece);
+        _playersInGame[piece.Color].Pieces.Remove(piece);
     }
     
     private void PassTurnToNextPlayer()

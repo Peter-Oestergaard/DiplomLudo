@@ -8,7 +8,7 @@ public class Home
 
     public Home(Color color)
     {
-        Tile = new Tile(TileType.Home, color);
+        Tile = new Tile(TileType.Home, color, -1);
     }
 
     public void AddPiece(Piece piece)

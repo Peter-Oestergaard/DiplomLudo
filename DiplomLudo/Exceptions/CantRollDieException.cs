@@ -1,4 +1,4 @@
-﻿namespace DiplomLudo;
+﻿namespace DiplomLudo.Exceptions;
 
 public class CantRollDieException : Exception
 {

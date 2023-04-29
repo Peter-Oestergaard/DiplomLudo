@@ -5,10 +5,13 @@ public class GameBoard
     public Dictionary<Color, Home> Homes { get; } = new();
 
     public List<Tile> MainTiles { get; private set; }
+    public Dictionary<Color, Tile> TileBeforeHomeStretch { get; } = new();
     
     // private Dictionary<Piece, Tile> _tokenPositions = new Dictionary<Piece, Tile>();
 
-    public Dictionary<Color, Tile?> StartingTiles { get; } = new();
+    public Dictionary<Color, Tile> StartingTiles { get; } = new();
+    public Dictionary<Color, List<Tile>> HomeStretch { get; } = new();
+    public Dictionary<Color, List<Tile>> PlayerPaths { get; } = new();
 
     public GameBoard()
     {
@@ -19,63 +22,79 @@ public class GameBoard
             if(color == Color.None) continue;
             Homes[color] = new Home(color);
             StartingTiles[color] = MainTiles.Single(t => t.Type == TileType.Start && t.Color == color);
+            TileBeforeHomeStretch[color] = MainTiles[(StartingTiles[color].Index + 50) % 52];
+
+            HomeStretch[color] = new List<Tile>();
+            for (int i = 0; i < 6; i++)
+            {
+                HomeStretch[color].Add(new Tile(TileType.Finish, color, i));
+            }
+
+            PlayerPaths[color] = new List<Tile>();
+            PlayerPaths[color].Add(Homes[color].Tile);
+            int startIndex = StartingTiles[color].Index;
+            for (int i = 0; i < 51; i++)
+            {
+                PlayerPaths[color].Add(MainTiles[(startIndex + i) % 52]);
+            }
+            PlayerPaths[color].AddRange(HomeStretch[color]);
         }
     }
     private List<Tile> GetMainTiles()
     {
         List<Tile> tiles = new();
-        tiles.Add(new Tile(TileType.Start, Color.Red)); // 0
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 1
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 2
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 3
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 4
-        tiles.Add(new Tile(TileType.Star, Color.None)); // 5
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 6
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 7
-        tiles.Add(new Tile(TileType.Globe, Color.None)); // 8
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 9
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 10
-        tiles.Add(new Tile(TileType.Star, Color.None)); // 11
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 12
-        tiles.Add(new Tile(TileType.Start, Color.Green)); // 13
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 14
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 15
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 16
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 17
-        tiles.Add(new Tile(TileType.Star, Color.None)); // 18
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 19
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 20
-        tiles.Add(new Tile(TileType.Globe, Color.None)); // 21
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 22
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 23
-        tiles.Add(new Tile(TileType.Star, Color.None)); // 24
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 25
-        tiles.Add(new Tile(TileType.Start, Color.Yellow)); // 26
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 27
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 28
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 29
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 30
-        tiles.Add(new Tile(TileType.Star, Color.None)); // 31
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 32
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 33
-        tiles.Add(new Tile(TileType.Globe, Color.None)); // 34
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 35
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 36
-        tiles.Add(new Tile(TileType.Star, Color.None)); // 37
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 38
-        tiles.Add(new Tile(TileType.Start, Color.Blue)); // 39
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 40
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 41
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 42
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 43
-        tiles.Add(new Tile(TileType.Star, Color.None)); // 44
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 45
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 46
-        tiles.Add(new Tile(TileType.Globe, Color.None)); // 47
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 48
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 49
-        tiles.Add(new Tile(TileType.Star, Color.None)); // 50
-        tiles.Add(new Tile(TileType.Regular, Color.None)); // 51
+        tiles.Add(new Tile(TileType.Start, Color.Red, tiles.Count)); // 0
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 1
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 2
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 3
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 4
+        tiles.Add(new Tile(TileType.Star, Color.None, tiles.Count)); // 5
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 6
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 7
+        tiles.Add(new Tile(TileType.Globe, Color.None, tiles.Count)); // 8
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 9
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 10
+        tiles.Add(new Tile(TileType.Star, Color.None, tiles.Count)); // 11
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 12
+        tiles.Add(new Tile(TileType.Start, Color.Green, tiles.Count)); // 13
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 14
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 15
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 16
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 17
+        tiles.Add(new Tile(TileType.Star, Color.None, tiles.Count)); // 18
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 19
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 20
+        tiles.Add(new Tile(TileType.Globe, Color.None, tiles.Count)); // 21
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 22
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 23
+        tiles.Add(new Tile(TileType.Star, Color.None, tiles.Count)); // 24
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 25
+        tiles.Add(new Tile(TileType.Start, Color.Yellow, tiles.Count)); // 26
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 27
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 28
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 29
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 30
+        tiles.Add(new Tile(TileType.Star, Color.None, tiles.Count)); // 31
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 32
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 33
+        tiles.Add(new Tile(TileType.Globe, Color.None, tiles.Count)); // 34
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 35
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 36
+        tiles.Add(new Tile(TileType.Star, Color.None, tiles.Count)); // 37
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 38
+        tiles.Add(new Tile(TileType.Start, Color.Blue, tiles.Count)); // 39
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 40
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 41
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 42
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 43
+        tiles.Add(new Tile(TileType.Star, Color.None, tiles.Count)); // 44
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 45
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 46
+        tiles.Add(new Tile(TileType.Globe, Color.None, tiles.Count)); // 47
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 48
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 49
+        tiles.Add(new Tile(TileType.Star, Color.None, tiles.Count)); // 50
+        tiles.Add(new Tile(TileType.Regular, Color.None, tiles.Count)); // 51
         return tiles;
     }
 
@@ -86,8 +105,45 @@ public class GameBoard
             Homes[player.Color].AddPiece(piece);
         }
     }
+    
     public void MovePieceToTile(Piece piece, Tile tile)
     {
         piece.MoveTo(tile);
+    }
+    
+    /// <summary>
+    /// Get the tile that is distance away from tile.
+    /// Takes into account the color to calculate the distance
+    /// to tiles in the home stretch.
+    /// The distance cannot exceed 57.
+    /// </summary>
+    /// <param name="tile"></param>
+    /// <param name="distance"></param>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    public Tile? GetTileDistanceAway(Tile tile, int distance, Color color)
+    {
+        switch (tile.Type)
+        {
+            case TileType.Regular:
+                // Check for the tile between the start tile and the star tile just before the home stretch.
+                // It's not possible for a piece of that color to get to this tile, so it doesn't make sense
+                // to try and get a tile any distance away.
+                if (tile.Index > TileBeforeHomeStretch[color].Index)
+                    if (tile.Index < StartingTiles[color].Index || (color == Color.Red && tile.Index == 51))
+                        return null;
+                goto case TileType.Globe;
+            case TileType.Start:
+            case TileType.Star:
+            case TileType.Globe:
+                int destinationIndex = tile.Index + distance;
+                if (destinationIndex > TileBeforeHomeStretch[color].Index)
+                {
+                    int i = 0;
+                }
+                break;
+        }
+        return MainTiles[tile.Index + distance];
+        //return HomeStretch[color][5];
     }
 }

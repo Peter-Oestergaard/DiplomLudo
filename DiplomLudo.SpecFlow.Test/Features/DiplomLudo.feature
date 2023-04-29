@@ -45,3 +45,16 @@ Scenario Outline: If a player has all their pieces at home, roll a die a maximum
 	| 1        |
 	| 2        |
 	| 3        |
+
+@RequiresCheatingDie
+Scenario Outline: A player moves into their home stretch
+	Given a two player game in its initial state with players yellow and green
+	And yellow is the current player
+	And one of yellows pieces is <tiles to home stretch> tiles in front of the star before yellows home stretch
+	When the current player rolls a <roll> with the die
+	And current player moves that piece
+	Then yellows piece is <tiles from finish> tiles away from the finish tile
+	
+	Examples:
+	| tiles to home stretch | roll | tiles from finish |
+	| 2                     | 5    | 3                 |
