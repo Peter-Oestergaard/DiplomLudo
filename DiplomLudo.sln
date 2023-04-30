@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomLudo.Test", "DiplomLu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomLudo.SpecFlow.Test", "DiplomLudo.SpecFlow.Test\DiplomLudo.SpecFlow.Test.csproj", "{821F75E6-95C4-4942-8981-320746C53700}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomLudo.Console", "DiplomLudo.Console\DiplomLudo.Console.csproj", "{97F6606E-6396-4E6B-A157-60443A8AEE4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{821F75E6-95C4-4942-8981-320746C53700}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{821F75E6-95C4-4942-8981-320746C53700}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{821F75E6-95C4-4942-8981-320746C53700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97F6606E-6396-4E6B-A157-60443A8AEE4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97F6606E-6396-4E6B-A157-60443A8AEE4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97F6606E-6396-4E6B-A157-60443A8AEE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97F6606E-6396-4E6B-A157-60443A8AEE4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

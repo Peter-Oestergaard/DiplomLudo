@@ -68,7 +68,7 @@ public class Game
         
         Tile? destination = NextTile(piece, Die.Value);
         
-        if (destination == null) return;
+        //if (destination == null) return;
 
         if (destination.PiecesCount == 1 && destination.AnyPiece!.Color != piece.Color)
         {
@@ -84,11 +84,11 @@ public class Game
         PassTurnToNextPlayer();
     }
 
-    public void RemovePiece(Piece piece)
-    {
-        piece.Tile?.Remove(piece);
-        _playersInGame[piece.Color].Pieces.Remove(piece);
-    }
+    // public void RemovePiece(Piece piece)
+    // {
+    //     piece.Tile?.Remove(piece);
+    //     _playersInGame[piece.Color].Pieces.Remove(piece);
+    // }
     
     private void PassTurnToNextPlayer()
     {
