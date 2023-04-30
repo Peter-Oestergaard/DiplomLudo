@@ -27,7 +27,7 @@ public class Game
         CurrentPlayer ??= player;
     }
 
-    public void RollDie()
+    public int RollDie()
     {
         // Rolled the die, can make move
         if (_dieRolled && PiecesWithLegalMoves().Count > 0)
@@ -40,7 +40,7 @@ public class Game
             Die.Roll();
             _dieRolled = true;
             CurrentPlayerNumberOfDieRolls++;
-            return;
+            return Die.Value;
         }
         
         throw new CantRollDieException("You already rolled the die");

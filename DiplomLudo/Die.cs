@@ -6,6 +6,6 @@ public class Die : IDie
 
     public void Roll()
     {
-        Value = new Random().Next(1, 6);
+        Value = new Random().Next(1, 7);
     } 
 }
