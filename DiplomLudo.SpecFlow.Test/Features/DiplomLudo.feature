@@ -60,11 +60,18 @@ Scenario Outline: A player moves into their home stretch
 	| 2                     | 5    | 3                 |
 	| 5                     | 6    | 5                 |
 	| 1                     | 6    | 1                 |
- 
-Scenario: A player moves onto the finish tile
+
+@RequiresCheatingDie
+Scenario Outline: A player has a piece in the home stretch but rolls too many with the die
+	and has to move away from finish
 	Given a two player game in its initial state with players yellow and green
 	And yellow is the current player
 	And one of yellows pieces is <tiles to finish> tiles away from the finish tile
 	When the current player rolls a <roll> with the die
 	And current player moves that piece
-	Then that piece is no longer in the game
+	Then that piece is <tiles from finish> tiles away from the finish tile
+	
+	Examples:
+	  | tiles to finish | roll | tiles from finish |
+	  | 1               | 2    | 1                 |
+	  | 2               | 6    | 4                 |

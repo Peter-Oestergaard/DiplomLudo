@@ -67,7 +67,7 @@ public class DiplomLudoStepDefinitions
 
         movablePieces.Should().AllSatisfy(p =>
         {
-            _game.NextTile(p).Should().BeEquivalentTo(_game.Board.StartingTiles[startingTileColor.ToEnum()]);
+            _game.NextTile(p, _die!.Value).Should().BeEquivalentTo(_game.Board.StartingTiles[startingTileColor.ToEnum()]);
         });
     }
 
@@ -127,16 +127,7 @@ public class DiplomLudoStepDefinitions
     {
         _game.CurrentPlayer!.Color.Should().Be(currentPlayerColor.ToEnum());
     }
-    
-    [Given(@"(red|green|yellow|blue) have ([1-4]) left")]
-    public void GivenColorHaveLeft(string playerColor, int piecesLeft)
-    {
-        while (_players[playerColor.ToEnum()].Pieces.Count > piecesLeft)
-        {
-            _game.RemovePiece(_players[playerColor.ToEnum()].Pieces.First());
-        }
-    }
-    
+
     [Given(@"one of (red|green|yellow|blue)s pieces is ([1-51]) tiles in front of the star before (red|green|yellow|blue)s home stretch")]
     public void GivenOneOfColorsPiecesIsTilesInFrontOfTheStarBeforeColorsHomeStretch(string playerColor, int tiles, string homeStretchColor)
     {
@@ -157,7 +148,7 @@ public class DiplomLudoStepDefinitions
         tileWithPiece.Pieces.Should().Contain(_pieceUnderTest);
     }
     
-    [Then(@"(red|green|yellow|blue) have [0-4] pieces in game")]
+    [Then(@"(red|green|yellow|blue) have ([0-4]) pieces in game")]
     public void ThenColorHavePiecesInGame(string playerColor, int pieces)
     {
         _players[playerColor.ToEnum()].Pieces.Count.Should().Be(pieces);
@@ -167,5 +158,20 @@ public class DiplomLudoStepDefinitions
     public void WhenCurrentPlayerMovesThatPiece()
     {
         _game.Move(_pieceUnderTest);
+    }
+    
+    [Given(@"one of (red|green|yellow|blue)s pieces is ([0-6]) tiles away from the finish tile")]
+    public void GivenOneOfColorsPiecesIsTilesAwayFromTheFinishTile(string playerColor, int tiles)
+    {
+        _pieceUnderTest = _players[playerColor.ToEnum()].Pieces.First();
+        Tile tile = _game.Board.PlayerPaths[playerColor.ToEnum()][^(tiles+1)];
+
+        _game.Board.MovePieceToTile(_pieceUnderTest, tile);
+    }
+    
+    [Then(@"that piece is no longer in the game")]
+    public void ThenThatPieceIsNoLongerInTheGame()
+    {
+        _pieceUnderTest.Should().BeNull();
     }
 }
