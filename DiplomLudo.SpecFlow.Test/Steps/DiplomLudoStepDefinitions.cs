@@ -54,6 +54,7 @@ public class DiplomLudoStepDefinitions
     {
         _game!.StartingPlayer(_players.Single(p => p.Color == color.ToEnum()));
     }
+    
     [When(@"the current player rolls a ([1-6]) with the die")]
     public void WhenTheCurrentPlayerRollsAWithTheDie(int value)
     {

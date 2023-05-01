@@ -6,6 +6,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomLudo.Test", "DiplomLu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomLudo.SpecFlow.Test", "DiplomLudo.SpecFlow.Test\DiplomLudo.SpecFlow.Test.csproj", "{821F75E6-95C4-4942-8981-320746C53700}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudoGameElvir", "LudoGameElvir\LudoGameElvir.csproj", "{C228279F-1630-43E8-9764-7D05FF18263A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudoGame.Elvir.UI", "LudoGame.Elvir.UI\LudoGame.Elvir.UI.csproj", "{975449C8-DC46-421B-9860-99D0F2267D87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudoGame.Elvir.SpecFlow.Test", "LudoGame.Elvir.SpecFlow.Test\LudoGame.Elvir.SpecFlow.Test.csproj", "{D4A222BC-1965-4AF8-9835-C5EA55EF215B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,17 @@ Global
 		{821F75E6-95C4-4942-8981-320746C53700}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{821F75E6-95C4-4942-8981-320746C53700}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{821F75E6-95C4-4942-8981-320746C53700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C228279F-1630-43E8-9764-7D05FF18263A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C228279F-1630-43E8-9764-7D05FF18263A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C228279F-1630-43E8-9764-7D05FF18263A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C228279F-1630-43E8-9764-7D05FF18263A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975449C8-DC46-421B-9860-99D0F2267D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975449C8-DC46-421B-9860-99D0F2267D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975449C8-DC46-421B-9860-99D0F2267D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975449C8-DC46-421B-9860-99D0F2267D87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A222BC-1965-4AF8-9835-C5EA55EF215B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A222BC-1965-4AF8-9835-C5EA55EF215B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A222BC-1965-4AF8-9835-C5EA55EF215B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A222BC-1965-4AF8-9835-C5EA55EF215B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
