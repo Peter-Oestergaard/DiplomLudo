@@ -42,8 +42,19 @@ public class Game
             CurrentPlayerNumberOfDieRolls++;
             return Die.Value;
         }
+
+        if (_dieRolled && PiecesWithLegalMoves().Count == 0)
+        {
+            PassTurnToNextPlayer();
+            return -1;
+        }
         
         throw new CantRollDieException("You already rolled the die");
+    }
+
+    public bool CanRollDie()
+    {
+        
     }
     
     public List<Piece> PiecesWithLegalMoves()

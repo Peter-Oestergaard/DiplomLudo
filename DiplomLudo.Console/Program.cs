@@ -125,6 +125,11 @@ do
             availableColors.Remove(Color.Blue);
             break;
         case ConsoleKey.Spacebar:
+            if (players.Count < 2)
+            {
+                message = "    Need more players. Choose one of the available colors.";
+                continue;
+            }
             readyToPlay = true;
             break;
         default:
@@ -137,27 +142,29 @@ do
 // Begin game
 Game game = new Game(players);
 // Game game = new Game(players, new CheatingDie {cheat = () => 6});
-game.StartingPlayer(players[(Color) new Random().Next(0, players.Count)]);
+game.StartingPlayer(players.ToList()[new Random().Next(0, players.Count)].Value);
 // game.StartingPlayer(players[Color.Red]);
+
 do
 {
+    Player currentPlayer = game.CurrentPlayer!;
     int dieRoll = game.RollDie();
     var moves = game.PiecesWithLegalMoves();
 
     // Reset gameboard
     string gameBoard = gameBoardTemplate;
 
-    // Update pieces
+    // Insert pieces on their tiles
     gameBoard = UpdateBoard(gameBoard);
 
     // Update possible moves
     gameBoard = UpdatePossibleMoves(gameBoard, moves, dieRoll);
 
-    // Clear control codes
+    // Clear unused board indices
     Regex tileContentIds = new(@"[rgybwxyz0-9]{2}");
     gameBoard = tileContentIds.Replace(gameBoard, "  ");
 
-    // Insert colors
+    // Insert terminal color codes
     var sb = new StringBuilder(gameBoard);
     sb = sb.Replace("{r}", r);
     sb = sb.Replace("{g}", g);
@@ -173,7 +180,7 @@ do
     Console.Clear();
     Console.WriteLine(gameBoard);
     string colorCode = $"{w}";
-    switch (game.CurrentPlayer!.Color)
+    switch (currentPlayer.Color)
     {
         case Color.Red:
             colorCode = $"{r}";
@@ -188,16 +195,35 @@ do
             colorCode = $"{b}";
             break;
     }
-    Console.WriteLine($" Current player: {colorCode}{Enum.GetName(game.CurrentPlayer!.Color)}{w}\n");
+    Console.WriteLine($"\n Current player: {colorCode}{Enum.GetName(currentPlayer.Color)}{w}\n");
     RenderDie(dieRoll);
 
     // Dictionary<int, Piece> pieceChoice = new Dictionary<int, Piece>();
     // Dictionary<int, Tile> moveToRender = new Dictionary<int, Tile>();
 
-    foreach (Piece piece in moves)
+    List<int> movablePiecesIndices = new List<int>();
+    if (moves.Count > 0)
     {
-        Console.WriteLine("    You can make a move");
+        Console.WriteLine("\n    You can make a move.");
+        Console.WriteLine("    Press the corresponding number to move that piece:");
+        Console.Write($"        {currentPlayer.Pieces.IndexOf(moves[0])+1}");
+        movablePiecesIndices.Add(currentPlayer.Pieces.IndexOf(moves[0]));
+        for (int i = 1; i < moves.Count; i++)
+        {
+            Console.Write($", {currentPlayer.Pieces.IndexOf(moves[i])+1}");
+            movablePiecesIndices.Add(currentPlayer.Pieces.IndexOf(moves[i]));
+        }
+        Console.WriteLine();
     }
+    else if (currentPlayer == game.CurrentPlayer)
+    {
+        Console.WriteLine("\n    Press any key to roll the die again.");
+    }
+    else
+    {
+        Console.WriteLine("\n    PETER.");
+    }
+
 
     // Get player input
     var input = Console.ReadKey(false);
@@ -313,35 +339,35 @@ void RenderDie(int value)
             Console.WriteLine("        ┗━━━━━┛");
             break;
         case 2:
-            Console.WriteLine("        ┏━━━━━┓");
+            Console.WriteLine("\n        ┏━━━━━┓");
             Console.WriteLine("        ┃●    ┃");
             Console.WriteLine("        ┃     ┃");
             Console.WriteLine("        ┃    ●┃");
             Console.WriteLine("        ┗━━━━━┛");
             break;
         case 3:
-            Console.WriteLine("        ┏━━━━━┓");
+            Console.WriteLine("\n        ┏━━━━━┓");
             Console.WriteLine("        ┃●    ┃");
             Console.WriteLine("        ┃  ●  ┃");
             Console.WriteLine("        ┃    ●┃");
             Console.WriteLine("        ┗━━━━━┛");
             break;
         case 4:
-            Console.WriteLine("        ┏━━━━━┓");
+            Console.WriteLine("\n        ┏━━━━━┓");
             Console.WriteLine("        ┃●   ●┃");
             Console.WriteLine("        ┃     ┃");
             Console.WriteLine("        ┃●   ●┃");
             Console.WriteLine("        ┗━━━━━┛");
             break;
         case 5:
-            Console.WriteLine("        ┏━━━━━┓");
+            Console.WriteLine("\n        ┏━━━━━┓");
             Console.WriteLine("        ┃●   ●┃");
             Console.WriteLine("        ┃  ●  ┃");
             Console.WriteLine("        ┃●   ●┃");
             Console.WriteLine("        ┗━━━━━┛");
             break;
         case 6:
-            Console.WriteLine("        ┏━━━━━┓");
+            Console.WriteLine("\n        ┏━━━━━┓");
             Console.WriteLine("        ┃●   ●┃");
             Console.WriteLine("        ┃●   ●┃");
             Console.WriteLine("        ┃●   ●┃");
