@@ -24,7 +24,7 @@ public class LudoService
         Console.Write("Enter the number of players (2-4): ");
         _numberOfPlayers = int.Parse(Console.ReadLine());
 
-        ConsoleColor[] colors = new ConsoleColor[] { ConsoleColor.Red, ConsoleColor.Blue, ConsoleColor.Green, ConsoleColor.Yellow };
+        ConsoleColor[] colors = new ConsoleColor[] { ConsoleColor.Red, ConsoleColor.Blue, ConsoleColor.Green, ConsoleColor.Magenta };
 
         for (int i = 0; i < _numberOfPlayers; i++)
         {

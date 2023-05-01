@@ -7,10 +7,12 @@ public class Game:IGame
     private int _currentPlayerIndex = 0;
     private int _currentRoll = 0;
     private List<IPlayer> _players;
+    private IBoard _board;
 
-    public Game()
+    public Game(IEnumerable<IPlayer> players)
     {
-        _players = new List<IPlayer>();
+        _players = players.ToList();
+        _board = new Board(players);
     }
 
     public IReadOnlyList<IPlayer> GetPlayers()
@@ -34,20 +36,19 @@ public class Game:IGame
 
     public void MoveCurrentPlayerPiece()
     {
-        _players[_currentPlayerIndex].MovePiece(_currentRoll);
+        _board.MovePiece(_players[_currentPlayerIndex], _currentRoll);
     }
 
     public int GetCurrentPlayerPiecePosition()
     {
-        return _players[_currentPlayerIndex].GetPiecePosition();
+        return _board.GetPiecePosition(_players[_currentPlayerIndex]);
     }
     public void SetCurrentPlayerPiecePosition(int position)
     {
-        _players[_currentPlayerIndex].SetPiecePosition(position);
+        _board.MovePiece(_players[_currentPlayerIndex], position - _board.GetPiecePosition(_players[_currentPlayerIndex]));
     }
-
     public bool HasPlayerWon(IPlayer player)
     {
-        return player.GetPiecePosition() == WinningPosition;
+        return _board.GetPiecePosition(player) == WinningPosition;
     }
 }

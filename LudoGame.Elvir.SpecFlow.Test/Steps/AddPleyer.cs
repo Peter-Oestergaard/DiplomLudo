@@ -12,7 +12,12 @@ public class AddPleyer
     [Given(@"I have a Ludo game")]
     public void GivenIHaveALudoGame()
     {
-        _game = new Game();
+        var players = new List<IPlayer>
+        {
+            new Player(ConsoleColor.Red),
+            new Player(ConsoleColor.Blue)
+        };
+        _game = new Game(players);
     }
 
     [Given(@"I have added a player with color ""(.*)""")]
@@ -50,11 +55,14 @@ public class AddPleyer
     [Given(@"I have a Ludo game with 4 players")]
     public void GivenIHaveALudoGameWith4Players()
     {
-        _game = new Game();
-        _game.AddPlayer(new Player(ConsoleColor.Red));
-        _game.AddPlayer(new Player(ConsoleColor.Blue));
-        _game.AddPlayer(new Player(ConsoleColor.Green));
-        _game.AddPlayer(new Player(ConsoleColor.Magenta));
+        var players = new List<IPlayer>
+        {
+            new Player(ConsoleColor.Red),
+            new Player(ConsoleColor.Blue),
+            new Player(ConsoleColor.Green),
+            new Player(ConsoleColor.Yellow)
+        };
+        _game = new Game(players);
     }
     [When(@"I try to add another player with color ""(.*)""")]
     public void WhenITryToAddAnotherPlayerWithColor(string color)
@@ -72,18 +80,21 @@ public class AddPleyer
     [Given(@"I have a Ludo game with 2 players")]
     public void GivenIHaveALudoGameWith2Players()
     {
-        _game = new Game();
-        _game.AddPlayer(new Player(ConsoleColor.Red));
-        _game.AddPlayer(new Player(ConsoleColor.Blue));
+        var players = new List<IPlayer>
+        {
+            new Player(ConsoleColor.Red),
+            new Player(ConsoleColor.Blue),
+        };
+        _game = new Game(players);
     }
 
-    [Given(@"the first player rolls a ""(.*)""")]
+    [Given(@"the red player rolls a ""(.*)""")]
     public void GivenTheFirstPlayerRollsA(int roll)
     {
         _game.CurrentPlayerRoll(roll);
     }
 
-    [When(@"the first player moves their piece")]
+    [When(@"the red player moves their piece")]
     public void WhenTheFirstPlayerMovesTheirPiece()
     {
         _game.MoveCurrentPlayerPiece();
@@ -94,15 +105,17 @@ public class AddPleyer
     {
         _game.GetCurrentPlayerPiecePosition().Should().Be(expectedPosition);
     }
-    [Given(@"the first player has their piece at position ""(.*)""")]
+    [Given(@"the red player has their piece at position ""(.*)""")]
     public void GivenTheFirstPlayerHasTheirPieceAtPosition(int position)
     {
         _game.SetCurrentPlayerPiecePosition(position);
     }
 
-    [Then(@"the first player should win the game")]
+    [Then(@"the red player should win the game")]
     public void ThenTheFirstPlayerShouldWinTheGame()
     {
         _game.HasPlayerWon(_game.GetPlayers().First()).Should().BeTrue();
     }
+
+  
 }

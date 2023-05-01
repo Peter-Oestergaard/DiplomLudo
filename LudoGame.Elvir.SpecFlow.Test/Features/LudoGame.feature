@@ -14,18 +14,18 @@ Feature: LudoGame
         
     Scenario: Cannot add more than 4 players
         Given I have a Ludo game with 4 players
-        When I try to add another player with color "Yellow"
+        When I try to add another player with color "Red"
         Then The game should not allow more than 4 players
         
     Scenario: Move a player's piece
         Given I have a Ludo game with 2 players
-        And the first player rolls a "3"
-        When the first player moves their piece
+        And the red player rolls a "3"
+        When the red player moves their piece
         Then the piece should be at position "3"
         
     Scenario: Player wins when their piece reaches position 40
         Given I have a Ludo game with 2 players
-        And the first player has their piece at position "37"
-        And the first player rolls a "3"
-        When the first player moves their piece
-        Then the first player should win the game
+        And the red player has their piece at position "37"
+        And the red player rolls a "3"
+        When the red player moves their piece
+        Then the red player should win the game
