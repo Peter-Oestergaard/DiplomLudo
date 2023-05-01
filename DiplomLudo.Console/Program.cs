@@ -20,31 +20,31 @@ const string gameBoardTemplate =
     "{w}                  ┏━━┳━━┳━━┓\n" +
     "{w}                  ┃10┃11┃12┃\n" +
     "{w}                  ┣━━{g}╋━━╋━━┫  ┏━━┳━━┓ G\n" +
-    "{w}                  ┃09{g}┃g0┃13{g}┃◀━┃gw┃gx┃ r\n" +
+    "{w}                  ┃09{g}┃g0{g}┃13{g}┃◀━┃gw┃gx┃ r\n" +
     "{r}   Red            {w}┣━━{g}╋━━╋━━┫  ┣━━╋━━┫ e\n" +
-    "{r}   ┏━━┳━━┓        {w}┃08{g}┃g1┃{w}14┃  {g}┃gy┃gz┃ e\n" +
+    "{r}   ┏━━┳━━┓        {w}┃08{g}┃g1{g}┃{w}14┃  {g}┃gy┃gz┃ e\n" +
     "{r}   ┃rw┃rx┃        {w}┣━━{g}╋━━╋{w}━━┫  {g}┗━━┻━━┛ n\n" +
-    "{r}   ┣━━╋━━┫        {w}┃07{g}┃g2┃{w}15┃\n" +
+    "{r}   ┣━━╋━━┫        {w}┃07{g}┃g2{g}┃{w}15┃\n" +
     "{r}   ┃ry┃rz┃        {w}┣━━{g}╋━━╋{w}━━┫\n" +
-    "{r}   ┗━━┻━━┛        {w}┃06{g}┃g3┃{w}16┃\n" +
+    "{r}   ┗━━┻━━┛        {w}┃06{g}┃g3{g}┃{w}16┃\n" +
     "{r}     ┃            {w}┣━━{g}╋━━╋{w}━━┫\n" +
-    "{r}     ▼            {w}┃05{g}┃g4┃{w}17┃\n" +
+    "{r}     ▼            {w}┃05{g}┃g4{g}┃{w}17┃\n" +
     "{w}┏━━{r}┳━━┳{w}━━┳━━┳━━┳━━╋━━{g}╋━━╋{w}━━╋━━┳━━┳━━┳━━┳━━┳━━┓\n" +
-    "{w}┃51{r}┃00{r}┃{w}01┃02┃03┃04┃██{g}┃g5┃{w}██┃18┃19┃20┃21┃22┃23┃\n" +
+    "{w}┃51{r}┃00{r}┃{w}01┃02┃03┃04┃██{g}┃g5{g}┃{w}██┃18┃19┃20┃21┃22┃23┃\n" +
     "{w}┣━━{r}╋━━╋━━╋━━╋━━╋━━╋━━{w}╋{g}━━{w}╋{y}━━╋━━╋━━╋━━╋━━╋━━╋{w}━━┫\n" +
-    "{w}┃50{r}┃r0┃r1┃r2┃r3┃r4┃r5┃{w}██{y}┃y5┃y4┃y3┃y2┃y1┃y0┃{w}24┃\n" +
-    "{w}┣━━{r}╋━━╋━━╋━━╋━━╋━━╋━━{w}╋━━╋{y}━━╋━━╋━━╋━━╋━━╋━━╋{w}━━┫\n" +
-    "{w}┃49┃48┃47┃46┃45┃44┃██┃b5┃██┃30┃29┃28┃27{y}┃26{y}┃{w}25┃\n" +
-    "{w}┗━━┻━━┻━━┻━━┻━━┻━━╋━━╋{b}━━{w}╋━━╋━━┻━━┻━━┻━━{y}┻━━┻{w}━━┛\n" +
-    "{w}                  {w}┃43{b}┃b4┃{w}31┃        {y}    ▲\n" +
+    "{w}┃50{r}┃r0{r}┃r1{r}┃r2{r}┃r3{r}┃r4{r}┃r5{r}┃{w}██{y}┃y5{y}┃y4{y}┃y3{y}┃y2{y}┃y1{y}┃y0{y}┃{w}24┃\n" +
+    "{w}┣━━{r}╋━━╋━━╋━━╋━━╋━━╋━━{w}╋{b}━━{w}╋{y}━━╋━━╋━━╋━━╋━━╋━━╋{w}━━┫\n" +
+    "{w}┃49┃48┃47┃46┃45┃44┃██{b}┃b5{b}┃{w}██┃30┃29┃28┃27{y}┃26{y}┃{w}25┃\n" +
+    "{w}┗━━┻━━┻━━┻━━┻━━┻━━╋━━{b}╋━━╋{w}━━╋━━┻━━┻━━┻━━{y}┻━━┻{w}━━┛\n" +
+    "{w}                  {w}┃43{b}┃b4{b}┃{w}31┃        {y}    ▲\n" +
     "{w}                  {w}┣━━{b}╋━━╋{w}━━┫        {y}    ┃\n" +
-    "{w}                  {w}┃42{b}┃b3┃{w}32┃        {y}┏━━┳━━┓\n" +
+    "{w}                  {w}┃42{b}┃b3{b}┃{w}32┃        {y}┏━━┳━━┓\n" +
     "{w}                  {w}┣━━{b}╋━━╋{w}━━┫        {y}┃yw┃yx┃\n" +
-    "{w}                  {w}┃41{b}┃b2┃{w}33┃        {y}┣━━╋━━┫\n" +
+    "{w}                  {w}┃41{b}┃b2{b}┃{w}33┃        {y}┣━━╋━━┫\n" +
     "{b}       B ┏━━┳━━┓  {w}┣━━{b}╋━━╋{w}━━┫        {y}┃yy┃yz┃\n" +
-    "{b}       l ┃bw┃bx┃  {w}┃40{b}┃b1┃{w}34┃        {y}┗━━┻━━┛\n" +
+    "{b}       l ┃bw┃bx┃  {w}┃40{b}┃b1{b}┃{w}34┃        {y}┗━━┻━━┛\n" +
     "{b}       u ┣━━╋━━┫  ┣━━╋━━╋{w}━━┫        {y}Yellow\n" +
-    "{b}       e ┃by┃bz┃━▶┃39{b}┃b0┃{w}35┃\n" +
+    "{b}       e ┃by┃bz┃━▶┃39{b}┃b0{b}┃{w}35┃\n" +
     "{b}         ┗━━┻━━┛  ┣━━╋━━╋{w}━━┫\n" +
     "{w}                  {w}┃38┃37┃36┃\n" +
     "{w}                  {w}┗━━┻━━┻━━┛";
@@ -140,8 +140,8 @@ do
 } while (!readyToPlay);
 
 // Begin game
-// Game game = new Game(players);
-Game game = new Game(players, new CheatingDie {cheat = () => 6});
+Game game = new Game(players);
+// Game game = new Game(players, new CheatingDie {cheat = () => 6});
 game.StartingPlayer(players.ToList()[new Random().Next(0, players.Count)].Value);
 // game.StartingPlayer(players[Color.Red]);
 
@@ -206,11 +206,11 @@ do
     {
         Console.WriteLine("\n    You can make a move.");
         Console.WriteLine("    Press the corresponding number to move that piece:");
-        Console.Write($"        {currentPlayer.Pieces.IndexOf(moves[0])+1}");
+        Console.Write($"        {currentPlayer.Pieces.IndexOf(moves[0]) + 1}");
         movablePiecesIndices.Add(currentPlayer.Pieces.IndexOf(moves[0]));
         for (int i = 1; i < moves.Count; i++)
         {
-            Console.Write($", {currentPlayer.Pieces.IndexOf(moves[i])+1}");
+            Console.Write($", {currentPlayer.Pieces.IndexOf(moves[i]) + 1}");
             movablePiecesIndices.Add(currentPlayer.Pieces.IndexOf(moves[i]));
         }
         Console.WriteLine();
@@ -220,7 +220,7 @@ do
         game.PassTurnToNextPlayer();
         Console.WriteLine("\n    Tough luck. Press any key to continue to next player.");
     }
-    
+
     if (moves.Count == 0 && currentPlayer == game.CurrentPlayer)
     {
         Console.WriteLine("\n    Press any key to roll the die again.");
@@ -228,33 +228,98 @@ do
 
 
     // Get player input
-    var input = Console.ReadKey(false);
-    if (movablePiecesIndices.Count > 0)
+    bool validInput = false;
+    do
     {
-        if (input.Key == ConsoleKey.D1)
+        var input = Console.ReadKey(false);
+        if (movablePiecesIndices.Count > 0)
         {
-            game.Move(currentPlayer.Pieces[movablePiecesIndices[0]]); 
+            if (input.Key == ConsoleKey.D1)
+            {
+                // loop through values, if 0 is present then choose that
+                // otherwise error
+                for (int i = 0; i < movablePiecesIndices.Count; i++)
+                {
+                    if (movablePiecesIndices[i] == 0)
+                    {
+                        game.Move(currentPlayer.Pieces[0]);
+                        validInput = true;
+                    }
+                }
+                if (!validInput)
+                {
+                    Console.WriteLine("\n    Unknown move. Choose one of the listed moves.");
+                    continue;
+                }
+            }
+            else if (input.Key == ConsoleKey.D2)
+            {
+                // loop through values, if 1 is present then choose that
+                // otherwise error
+                for (int i = 0; i < movablePiecesIndices.Count; i++)
+                {
+                    if (movablePiecesIndices[i] == 1)
+                    {
+                        game.Move(currentPlayer.Pieces[1]);
+                        validInput = true;
+                    }
+                }
+                if (!validInput)
+                {
+                    Console.WriteLine("\n    Unknown move. Choose one of the listed moves.");
+                    continue;
+                }
+            }
+            else if (input.Key == ConsoleKey.D3)
+            {
+                // loop through values, if 2 is present then choose that
+                // otherwise error
+                for (int i = 0; i < movablePiecesIndices.Count; i++)
+                {
+                    if (movablePiecesIndices[i] == 2)
+                    {
+                        game.Move(currentPlayer.Pieces[2]);
+                        validInput = true;
+                    }
+                }
+                if (!validInput)
+                {
+                    Console.WriteLine("\n    Unknown move. Choose one of the listed moves.");
+                    continue;
+                }
+            }
+            else if (input.Key == ConsoleKey.D4)
+            {
+                // loop through values, if 3 is present then choose that
+                // otherwise error
+                for (int i = 0; i < movablePiecesIndices.Count; i++)
+                {
+                    if (movablePiecesIndices[i] == 3)
+                    {
+                        game.Move(currentPlayer.Pieces[3]);
+                        validInput = true;
+                    }
+                }
+                if (!validInput)
+                {
+                    Console.WriteLine("\n    Unknown move. Choose one of the listed moves.");
+                    continue;
+                }
+            }
         }
-        else if (input.Key == ConsoleKey.D2)
+        else
         {
-            game.Move(currentPlayer.Pieces[movablePiecesIndices[1]]); 
+            validInput = true;
         }
-        else if (input.Key == ConsoleKey.D3)
+        if (input.Key == ConsoleKey.Escape
+            || input.Key == ConsoleKey.Q)
         {
-            game.Move(currentPlayer.Pieces[movablePiecesIndices[2]]); 
+            running = false;
+            validInput = true;
+            continue;
         }
-        else if (input.Key == ConsoleKey.D4)
-        {
-            game.Move(currentPlayer.Pieces[movablePiecesIndices[3]]); 
-        }
-    }
-
-    if (input.Key == ConsoleKey.Escape
-        || input.Key == ConsoleKey.Q)
-    {
-        running = false;
-        continue;
-    }
+        
+    } while (!validInput);
 } while (running);
 
 Environment.Exit(0);
@@ -272,6 +337,10 @@ string UpdateBoard(string gameBoard)
             {
                 homeIndex++;
                 gameBoard = RenderPieceAtHome(player.Pieces[i], i + 1, homeIndex, gameBoard);
+            }
+            else
+            {
+                gameBoard = RenderPiece(player.Pieces[i], i + 1, gameBoard);
             }
         }
         // {
@@ -344,7 +413,24 @@ string RenderPieceAtHome(Piece piece, int index, int indexInHome, string gameBoa
             sb.Replace(tileKey, $"●{index}");
             break;
     }
-    
+
+    return sb.ToString();
+}
+
+string RenderPiece(Piece piece, int index, string gameBoard)
+{
+    var sb = new StringBuilder(gameBoard);
+
+    var tile = piece.Tile!;
+    string tileKeyColor = "";
+    if (tile.Type == TileType.Finish)
+    {
+        tileKeyColor += Enum.GetName(piece.Color)!.ToLower()[0];
+    }
+    tileKeyColor += tile.Index;
+    tileKeyColor = tileKeyColor.PadLeft(2, '0');
+    sb.Replace(tileKeyColor, $"{{{Enum.GetName(piece.Color)!.ToLower()[0]}}}●{index}{{w}}");
+
     return sb.ToString();
 }
 
