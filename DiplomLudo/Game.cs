@@ -73,16 +73,23 @@ public class Game
         if (!_dieRolled) throw new DieNotRolledException("You need to roll the die before you can make a move");
         
         Tile? destination = NextTile(piece, Die.Value);
-        
-        //if (destination == null) return;
 
-        if (destination.PiecesCount == 1 && destination.AnyPiece!.Color != piece.Color)
+        if (destination.Type == TileType.Start && destination.Color != piece.Color && destination.PiecesCount > 0)
         {
-            // The piece on the tile is knocked home
-            Board.MovePieceToTile(destination.AnyPiece, Board.Homes[destination.AnyPiece.Color].Tile);
+            // The piece is moving onto another players start tile with their piece on it.
+            // The moving piece is knocked home
+            Board.MovePieceToTile(piece, Board.Homes[piece.Color].Tile);
         }
+        else
+        {
+            if (destination.PiecesCount == 1 && destination.AnyPiece!.Color != piece.Color)
+            {
+                // The piece on the tile is knocked home
+                Board.MovePieceToTile(destination.AnyPiece, Board.Homes[destination.AnyPiece.Color].Tile);
+            }
 
-        Board.MovePieceToTile(piece, destination);
+            Board.MovePieceToTile(piece, destination);
+        }
         
         // Check winning conditions here
         // Board.HomeStretch[piece.Color][^1].PiecesCount == 4

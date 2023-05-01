@@ -75,7 +75,7 @@ public class DiplomLudoStepDefinitions
     public void GivenOneOfColorsPiecesOnColorsStartingTile(string p1Color, string p2Color)
     {
         _game.Board.MovePieceToTile(_players[p1Color.ToEnum()].Pieces[0], _game.Board.StartingTiles[p2Color.ToEnum()]!);
-        _game.Board.Homes[Color.Yellow].PiecesCount.Should().Be(3);
+        _game.Board.Homes[p1Color.ToEnum()].PiecesCount.Should().Be(3);
     }
 
     [When(@"(red|green|yellow|blue) moves a piece to (red|green|yellow|blue)s starting tile")]
@@ -173,5 +173,22 @@ public class DiplomLudoStepDefinitions
     public void ThenThatPieceIsNoLongerInTheGame()
     {
         _pieceUnderTest.Should().BeNull();
+    }
+    
+    [Given(@"one of (red|green|yellow|blue)s pieces is ([0-6]) tiles away from (red|green|yellow|blue)s starting tile")]
+    public void GivenOneOfColorsPiecesIsTilesAwayFromColorsStartingTile(string p1Color, int tiles, string p2Color)
+    {
+        Tile startingTile = _game.Board.PlayerPaths[p2Color.ToEnum()][1];
+        int startingTileIndex = startingTile.Index;
+        int p1TileIndex = (startingTileIndex - tiles + 52) % 52;
+        Tile p1Tile = _game.Board.MainTiles[p1TileIndex];
+        _pieceUnderTest = _players[p1Color.ToEnum()].Pieces.First();
+        _game.Board.MovePieceToTile(_pieceUnderTest, p1Tile);
+    }
+    
+    [Then(@"that piece is knocked back to home")]
+    public void ThenThatPieceIsKnockedBackToHome()
+    {
+        _pieceUnderTest.Tile.Should().Be(_game.Board.PlayerPaths[_pieceUnderTest.Color][0]);
     }
 }

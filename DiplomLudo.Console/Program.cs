@@ -159,6 +159,9 @@ do
 
     // Update possible moves
     gameBoard = UpdatePossibleMoves(gameBoard, moves, dieRoll);
+    
+    // Insert starts and globes
+    gameBoard = UpdateBoardStartAndGlobes(gameBoard);
 
     // Clear unused board indices
     Regex tileContentIds = new(@"[rgybwxyz0-9]{2}");
@@ -430,6 +433,25 @@ string RenderPiece(Piece piece, int index, string gameBoard)
     tileKeyColor += tile.Index;
     tileKeyColor = tileKeyColor.PadLeft(2, '0');
     sb.Replace(tileKeyColor, $"{{{Enum.GetName(piece.Color)!.ToLower()[0]}}}●{index}{{w}}");
+
+    return sb.ToString();
+}
+
+string UpdateBoardStartAndGlobes(string gameBoard)
+{
+    var sb = new StringBuilder(gameBoard);
+
+    string[] stars = {"05", "11", "18", "24", "31", "37", "44", "50"};
+    string[] globes = {"00", "08", "13", "21", "26", "34", "39", "47"};
+
+    foreach (string star in stars)
+    {
+        sb.Replace(star, "S ");
+    }
+    foreach (string globe in globes)
+    {
+        sb.Replace(globe, "G ");
+    }
 
     return sb.ToString();
 }

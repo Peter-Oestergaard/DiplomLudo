@@ -75,3 +75,19 @@ Scenario Outline: A player has a piece in the home stretch but rolls too many wi
 	  | tiles to finish | roll | tiles from finish |
 	  | 1               | 2    | 1                 |
 	  | 2               | 6    | 4                 |
+
+@RequiresCheatingDie
+Scenario Outline: A player moves their piece on top of another players starting tile with one of their pieces on it
+	Given a two player game in its initial state with players blue and green
+	And blue is the current player
+	And one of greens pieces is on greens starting tile
+	And one of blues pieces is <tiles> tiles away from greens starting tile
+	When the current player rolls a <tiles> with the die
+	And current player moves that piece
+	Then that piece is knocked back to home
+	
+	Examples:
+	  | tiles |
+	  | 1     |
+	  | 2     |
+	  | 6     |
