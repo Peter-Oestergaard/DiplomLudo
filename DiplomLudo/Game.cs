@@ -10,7 +10,7 @@ public class Game
     private SortedDictionary<Color, Player> _playersInGame;
     public int CurrentPlayerNumberOfDieRolls { get; private set; }
 
-    private bool _dieRolled;
+    private bool _dieRolled = false;
 
     public Game(Dictionary<Color, Player> players, IDie? die = null)
     {
@@ -52,11 +52,6 @@ public class Game
         throw new CantRollDieException("You already rolled the die");
     }
 
-    public bool CanRollDie()
-    {
-        
-    }
-    
     public List<Piece> PiecesWithLegalMoves()
     {
         List<Piece> piecesThatCanBeMoved = new();
@@ -101,7 +96,7 @@ public class Game
     //     _playersInGame[piece.Color].Pieces.Remove(piece);
     // }
     
-    private void PassTurnToNextPlayer()
+    public void PassTurnToNextPlayer()
     {
         int current = (int)CurrentPlayer!.Color;
         do
@@ -109,6 +104,8 @@ public class Game
             current = (current + 1) % 4;
         } while (!_playersInGame.ContainsKey((Color)current));
         CurrentPlayer = _playersInGame[(Color)current];
+        _dieRolled = false;
+        CurrentPlayerNumberOfDieRolls = 0;
     }
     
     public Piece? GetAnyPieceFromHome()

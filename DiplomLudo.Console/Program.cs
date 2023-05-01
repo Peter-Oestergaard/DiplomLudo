@@ -140,8 +140,8 @@ do
 } while (!readyToPlay);
 
 // Begin game
-Game game = new Game(players);
-// Game game = new Game(players, new CheatingDie {cheat = () => 6});
+// Game game = new Game(players);
+Game game = new Game(players, new CheatingDie {cheat = () => 6});
 game.StartingPlayer(players.ToList()[new Random().Next(0, players.Count)].Value);
 // game.StartingPlayer(players[Color.Red]);
 
@@ -215,18 +215,39 @@ do
         }
         Console.WriteLine();
     }
-    else if (currentPlayer == game.CurrentPlayer)
+    else if (game.CurrentPlayerNumberOfDieRolls == 3)
+    {
+        game.PassTurnToNextPlayer();
+        Console.WriteLine("\n    Tough luck. Press any key to continue to next player.");
+    }
+    
+    if (moves.Count == 0 && currentPlayer == game.CurrentPlayer)
     {
         Console.WriteLine("\n    Press any key to roll the die again.");
-    }
-    else
-    {
-        Console.WriteLine("\n    PETER.");
     }
 
 
     // Get player input
     var input = Console.ReadKey(false);
+    if (movablePiecesIndices.Count > 0)
+    {
+        if (input.Key == ConsoleKey.D1)
+        {
+            game.Move(currentPlayer.Pieces[movablePiecesIndices[0]]); 
+        }
+        else if (input.Key == ConsoleKey.D2)
+        {
+            game.Move(currentPlayer.Pieces[movablePiecesIndices[1]]); 
+        }
+        else if (input.Key == ConsoleKey.D3)
+        {
+            game.Move(currentPlayer.Pieces[movablePiecesIndices[2]]); 
+        }
+        else if (input.Key == ConsoleKey.D4)
+        {
+            game.Move(currentPlayer.Pieces[movablePiecesIndices[3]]); 
+        }
+    }
 
     if (input.Key == ConsoleKey.Escape
         || input.Key == ConsoleKey.Q)
